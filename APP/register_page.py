@@ -112,7 +112,7 @@ class RegisterPage(ft.View):
 
         try:
             response = requests.post(
-                f"{API_BASE_URL}/register",
+                f"{API_BASE_URL}/users/register",
                 json={
                     "email": self.email_field.value,
                     "username": self.username_field.value,

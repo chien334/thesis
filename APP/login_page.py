@@ -14,7 +14,7 @@ class Auth:
     def login(self, username: str, password: str) -> bool:
         try:
             response = requests.post(
-                f"{API_BASE_URL}/token",
+                f"{API_BASE_URL}/users/token",
                 data={
                     "username": username,
                     "password": password
@@ -93,8 +93,8 @@ class LoginPage(ft.View):
         ]
 
     def auto_fill_test_account(self, e):
-        self.username_field.value = "andrews"
-        self.password_field.value = "Andrews@123"
+        self.username_field.value = "admin"
+        self.password_field.value = "admin@123"
         self.page.update()
 
     def login_clicked(self, e):

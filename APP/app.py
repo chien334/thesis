@@ -279,7 +279,8 @@ def main(page: ft.Page):
                             result_container
                         ],
                         spacing=20,
-                        alignment=ft.MainAxisAlignment.CENTER
+                        alignment=ft.MainAxisAlignment.CENTER,
+                        expand=True
                     )
                 ],
                 spacing=20,
@@ -291,7 +292,7 @@ def main(page: ft.Page):
         scroll=ft.ScrollMode.AUTO
     )
     
-    admin_page = AdminPage(page, auth.token)
+    admin_view = AdminPage(page)
 
     def route_change(e):
         page.views.clear()
@@ -300,7 +301,7 @@ def main(page: ft.Page):
         elif e.route == "/register":
             page.views.append(register_page)
         elif e.route == "/admin" and auth.is_admin:
-            page.views.append(admin_page)
+            page.views.append(admin_view)
         else:
             page.views.append(detection_page)
         page.update()

@@ -33,21 +33,21 @@ class UserUpdate(BaseModel):
 class Token(BaseModel):
     access_token: str
     token_type: str
-    user: User
+    user: 'User'
 
 class TokenData(BaseModel):
-    email: Optional[str] = None
+    username: Optional[str] = None
 
 class ChatRequest(BaseModel):
     message: str
 
 class ChatResponse(BaseModel):
     response: str
+    chat_history_id: int
 
 class DetectionResponse(BaseModel):
-    predictions: List[Dict[str, Any]]
-    confidence_scores: List[float]
-    processing_time: float
+    results: dict
+    detection_history_id: int
 
 class ChatHistoryBase(BaseModel):
     message: str
@@ -57,9 +57,12 @@ class ChatHistoryBase(BaseModel):
 class ChatHistoryCreate(ChatHistoryBase):
     pass
 
-class ChatHistory(ChatHistoryBase):
+class ChatHistory(BaseModel):
     id: int
     user_id: int
+    message: str
+    response: str
+    image_path: Optional[str] = None
     created_at: datetime
 
     class Config:
@@ -74,4 +77,7 @@ class UserList(BaseModel):
     total: int
 
 class UserWithChatHistory(User):
-    chat_histories: List[ChatHistory] = [] 
+    chat_histories: List['ChatHistory'] = []
+
+# Rebuild Token model to include User
+Token.model_rebuild() 

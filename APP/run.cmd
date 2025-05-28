@@ -1,2 +1,4 @@
-./.venv/Scripts/activate
-python main.py
+@echo off
+cd /d %~dp0
+call .venv\Scripts\activate
+flet run --web
